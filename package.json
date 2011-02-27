@@ -6,11 +6,11 @@
   "author": "Tim Caswell <tim@creationix.com>",
   "repository": {
     "type": "git",
-    "url": "http://github.com/creationix/couch-client.git"
+    "url": "http://github.com/michael/couch-client.git"
   },
-  "bugs": "http://github.com/creationix/couch-client/issues",
-  "engines": ["node >= 0.2.0"],
+  "bugs": "http://github.com/michael/couch-client/issues",
+  "engines": ["node >= 0.4.0"],
   "modules": {
-    "index": "./lib/couch-client.js",
-  },
+    "index": "./lib/couch-client.js"
+  }
 }
