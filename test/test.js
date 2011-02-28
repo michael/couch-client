@@ -89,6 +89,32 @@ function testView(callback) {
   });
 }
 
+// CouchClient#request - with basic-auth support
+// --------------
+
+function testRequest(callback) {
+  db.request('PUT', '/_config/admins/couch-client', 'test', function(err, doc) {
+    assert.equal('', doc);
+    db.request('PUT', '/secure_test', function(err, doc) {
+      assert.ok(doc.error && doc.error == 'unauthorized');
+      assert.ok(doc.reason == 'You are not a server admin.')
+
+      var securedb = CouchClient('http://couch-client:test@127.0.0.1:5984/');
+      securedb.request('PUT', '/secure_test', function(err, doc) {
+        assert.ok(doc.ok);
+
+        securedb.request('DELETE', '/secure_test', function(err, doc) {
+          assert.ok(doc.ok);
+        });
+
+        securedb.request('DELETE', '/_config/admins/couch-client', function(err, doc) {
+          assert.ok(!err);
+          callback();
+        }); 
+      });
+    });
+  }); 
+}
 
 // Flush DB and perform tests
 db.request("DELETE", db.uri.pathname, function (err) {
