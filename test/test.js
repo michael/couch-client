@@ -124,7 +124,8 @@ db.request("DELETE", db.uri.pathname, function (err) {
     async.series([
       testSave,
       testGet,
-      testView
+      testView,
+      testRequest
     ], function(err) {
       console.log('Tests completed.');
     });
